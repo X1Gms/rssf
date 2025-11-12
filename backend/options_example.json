@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 3000
+  },
+  "mqtt": {
+    "apikey": "some.apikey",
+    "username": "myuser@ttn",
+    "url": "mqtts://example.com",
+    "connectTimeout": 4000,
+    "clean": true
+  }
+}

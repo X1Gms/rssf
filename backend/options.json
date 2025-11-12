@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 3000
+  },
+  "mqtt": {
+    "apikey": "NNSXS.BRV7WFPMBVAVDY66AWTUHK6VMVXR6ELEDX3HU3I.4ORPU4LPZFAYBQL3TF4OUSD3PMF7GGLA32C2A5Q7TBEYTUPGERAQ",
+    "username": "rssf-g3-first@ttn",
+    "url": "mqtts://eu1.cloud.thethings.network",
+    "connectTimeout": 4000,
+    "clean": true
+  }
+}

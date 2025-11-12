@@ -1,0 +1,8 @@
+# FOLDERS
+node_modules/
+.idea/
+
+
+
+# FILES
+options.json
