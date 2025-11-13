@@ -1,5 +1,5 @@
 function handleError(err) {
-    console.error('❌ Erro do MQTT:', err);
+    console.error('❌ MQTT Error:', err);
 }
 
 module.exports = { handleError };

@@ -4,8 +4,8 @@ const options = require("../options.json").mqtt;
 
 const createMqtt = () => {
     const client = mqtt.connect(options.url, {
-        clean: options.clean,
-        connectTimeout: options.connectTimeout,
+        clean: options.clean || true,
+        connectTimeout: options.connectTimeout || 4000,
         username: options.username,
         password: options.apikey,
     });

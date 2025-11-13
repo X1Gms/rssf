@@ -2,11 +2,15 @@
   "server": {
     "port": 3000
   },
+  "mysql": {
+    "host": "host",
+    "database": "db",
+    "username": "user",
+    "password": "password"
+  },
   "mqtt": {
     "apikey": "some.apikey",
     "username": "myuser@ttn",
-    "url": "mqtts://example.com",
-    "connectTimeout": 4000,
-    "clean": true
+    "url": "mqtts://example.com"
   }
 }

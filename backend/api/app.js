@@ -7,7 +7,7 @@ const createApp = () => {
     app.use(express.json());
     setupRoutes(app);
     app.listen(options.port, () => {
-        console.log(`🌐 Express no http://localhost:${options.port}`);
+        console.log(`🌐 Express on http://localhost:${options.port}`);
     });
 }
 
