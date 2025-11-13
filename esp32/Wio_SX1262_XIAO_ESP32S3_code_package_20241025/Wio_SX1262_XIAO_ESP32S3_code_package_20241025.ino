@@ -9,7 +9,6 @@ DHT dht(DHTPIN, DHTTYPE);  //   DHT10 DHT20 don't need to define Pin
 
 #define LDR_PIN D0
 // #define LM35_PIN 1
-const char *deviceID = "ESTS-F315-1";
 // regional choices: EU868, US915, AU915, AS923, IN865, KR920, CN780, CN500
 const LoRaWANBand_t Region = EU868;
 const uint8_t subBand = 0;  // For US915 and AU915
@@ -93,12 +92,23 @@ void loop() {
   // true para dar bypass do if
   // if (true) {
   StaticJsonDocument<200> doc;
-  doc["id"] = deviceID;
+
+  JsonArray identification = doc.createNestedArray("identification");
+  identification["school"] = "ESTS";
+  identification["block"] = "F";
+  identification["floor"] = 3;
+  identification["room"] = 15;
+  identification["device"] = 1;
+  uint64_t chipid = ESP.getEfuseMac();
+  char serialStr[32];
+  sprintf(serialStr, "%04X%08X",
+          (uint16_t)(chipid >> 32),
+          (uint32_t)chipid);
+  identification["serial_number"] = serialStr;
   JsonArray data = doc.createNestedArray("data");
-  JsonObject sensorValues = data.createNestedObject();
-  sensorValues["luminosity"] = analogRead(LDR_PIN);
-  sensorValues["humidity"] = dht.readHumidity();
-  sensorValues["temperature"] = dht.readTemperature();
+  data["luminosity"] = analogRead(LDR_PIN);
+  data["humidity"] = dht.readHumidity();
+  data["temperature"] = dht.readTemperature();
   serializeJsonPretty(doc, Serial);
   Serial.println();
 
