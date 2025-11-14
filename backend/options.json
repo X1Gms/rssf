@@ -4,8 +4,8 @@
   },
   "mysql": {
     "host": "localhost",
-    "database": "rssfDB",
-    "username": "root",
+    "database": "rssf",
+    "user": "root",
     "password": "root"
   },
   "mqtt": {
