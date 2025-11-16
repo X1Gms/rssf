@@ -19,7 +19,7 @@ const loadMiddlewares = (dir) => {
     return allMiddlewares;
 }
 
-const middlewaresDir = path.join(__dirname, 'handlers');
+const middlewaresDir = path.join(__dirname, 'middlewares');
 const middleWares = loadMiddlewares(middlewaresDir);
 
 module.exports = middleWares;
