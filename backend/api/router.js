@@ -21,6 +21,11 @@ const setupRoutes = (app) => {
     app.post('/login',middleWares.loginMiddleware,handlers.loginUser);
     // Crud element of user is also part of auth, POST /user
     // ####################################
+
+    // ########### SAMPLES ###############
+    app.get("/samples", handlers.getReadings);
+    // ####################################
+
 }
 
 module.exports = { setupRoutes };
