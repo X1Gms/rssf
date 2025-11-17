@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -6,6 +8,15 @@ export default function Home() {
       <h1>Hello World from Next.js</h1>
 
       <Button>Example Button Without Action</Button>
+
+      {/* render the button as a link */}
+      <Button asChild>
+        <Link href="/login">Login Page</Link>
+      </Button>
+
+      <Button asChild>
+        <Link href="/signup">Signup Page</Link>
+      </Button>
     </main>
   );
 }
