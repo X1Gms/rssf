@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { CalendarCheck2 } from "lucide-react";
+
 import { User as UserType } from "@/types";
 
 import {
@@ -7,11 +10,8 @@ import {
   CardDescription,
   CardAction,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { CalendarCheck2 } from "lucide-react";
 
 interface UserProps {
   user: UserType;
@@ -19,6 +19,7 @@ interface UserProps {
 
 export function User({ user }: UserProps) {
   return (
+    // todo: implement feature to turn user admin or user, think about edit and delete.
     <Link href={`/users/${user.id}`}>
       <Card>
         <CardHeader>
