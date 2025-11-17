@@ -11,8 +11,8 @@ export default function UsersLayout({
       <Header />
       <NavBar />
 
-      <div className="flex flex-col p-6">
-        <div className="container">{children}</div>
+      <div className="flex flex-1 flex-col p-6">
+        <div className="container flex flex-1 flex-col">{children}</div>
       </div>
     </div>
   );

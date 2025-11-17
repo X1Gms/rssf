@@ -8,7 +8,7 @@ const IS_AUTHENTICATED = true;
 
 export function Header() {
   return (
-    <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 flex h-14 items-center border-b p-6 backdrop-blur">
+    <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 flex h-14 items-center border-b px-6 backdrop-blur">
       <div className="container flex">
         <Logo />
 

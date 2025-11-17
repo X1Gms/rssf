@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { Block as BlockType } from "@/types";
-import { cn } from "@/lib/utils";
 
 import {
   Card,
@@ -16,14 +15,10 @@ interface BlockProps {
 
 // todo: think better about this
 export function Block({ block }: BlockProps) {
-  const isValidBlock = block.id === 6;
-
   return (
     <Link
-      href={
-        isValidBlock ? `/dashboard/blocks/${block.id}` : `/dashboard/blocks`
-      }
-      className={cn(isValidBlock ? "cursor-pointer" : "cursor-not-allowed")}
+      href={`/dashboard/blocks/${block.name}`}
+      className="rounded-xl shadow-md transition-all hover:opacity-70"
     >
       <Card>
         <CardHeader>

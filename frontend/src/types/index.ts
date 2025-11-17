@@ -11,3 +11,11 @@ export type Block = {
   name: string;
   school: string;
 };
+
+export type Room = {
+  id: number;
+  name: string;
+  floor: number;
+  block: string;
+  type: "room" | "eletric_panel" | "corridor";
+};

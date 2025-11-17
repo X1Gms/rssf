@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function NotFoundPage() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-6">
-      <Empty>
+      <Empty className="p-0">
         <EmptyHeader>
           <EmptyMedia variant="icon">
             <FileXCorner />
