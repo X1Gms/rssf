@@ -38,6 +38,7 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     console.log(values);
+    // todo: handle login
   }
 
   return (

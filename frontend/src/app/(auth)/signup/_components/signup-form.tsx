@@ -40,6 +40,7 @@ export function SignupForm() {
 
   function onSubmit(values: z.infer<typeof signupSchema>) {
     console.log(values);
+    // todo: handle signup
   }
 
   return (
