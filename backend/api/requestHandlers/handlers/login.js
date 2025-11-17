@@ -15,10 +15,18 @@ const loginUser = (req, res) => {
                             });
                         }
                         else{
-                            return res.status(200).json({
-                                message: "Login Successfull",
-                                user: rows
-                            })
+                            executeSQL("INSERT INTO `user_log` (user_id, created_at) VALUES (?,CURRENT_TIMESTAMP())", [rows[0].id], (err,rows) => {
+                                if(err){
+                                    return res.status(500).json({
+                                        message: "Internal server error!"
+                                    });
+                                }else{
+                                    return res.status(200).json({
+                                        message: "Login Successfull",
+                                        user: rows
+                                    })
+                                }
+                            });
                         }
                     })
             }
