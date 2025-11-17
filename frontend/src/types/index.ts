@@ -5,3 +5,9 @@ export type User = {
   role: "admin" | "user";
   last_access: Date;
 };
+
+export type Block = {
+  id: number;
+  name: string;
+  school: string;
+};

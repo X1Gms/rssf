@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
 import {
   InputGroup,
@@ -6,13 +6,13 @@ import {
   InputGroupAddon,
 } from "@/components/ui/input-group";
 
-interface SearchUserProps {
+interface SearchProps {
   value: string;
   onChange: (value: string) => void;
   totalResults: number;
 }
 
-export function SearchUser({ value, onChange, totalResults }: SearchUserProps) {
+export function Search({ value, onChange, totalResults }: SearchProps) {
   return (
     <InputGroup>
       <InputGroupInput
@@ -21,9 +21,11 @@ export function SearchUser({ value, onChange, totalResults }: SearchUserProps) {
         onChange={(e) => onChange(e.target.value)}
       />
       <InputGroupAddon>
-        <Search />
+        <SearchIcon />
       </InputGroupAddon>
-      <InputGroupAddon align="inline-end">{totalResults}</InputGroupAddon>
+      <InputGroupAddon align="inline-end">
+        {totalResults} {totalResults === 1 ? "result" : "results"}
+      </InputGroupAddon>
     </InputGroup>
   );
 }

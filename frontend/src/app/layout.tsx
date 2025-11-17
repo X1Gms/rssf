@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 // use Inter font
-const inter = Inter({
-  variable: "--font-inter",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* remove dark class to disable dark mode */}
-      <body className={`${inter.variable} light font-sans antialiased`}>
+      <body className={`${spaceGrotesk.variable} light font-sans antialiased`}>
         {children}
       </body>
     </html>

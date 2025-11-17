@@ -1,27 +1,15 @@
-import Link from "next/link";
+import { Logo } from "@/components/logo";
+import { Welcome } from "@/components/welcome";
 
-import { Button } from "@/components/ui/button";
-
+// todo: check if user is authenticated, if logged in, redirect to dashboard
 export default function Home() {
   return (
-    <main className="flex h-full min-h-screen flex-col items-center justify-center gap-2 p-4">
-      <h1>Hello World from Next.js</h1>
+    <main className="flex min-h-svh flex-col items-center justify-center p-6">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <Logo />
 
-      {/* render the button as a link */}
-      {/* todo: make sure that only unauthenticated users can access this page */}
-      <Button asChild>
-        <Link href="/login">Login Page</Link>
-      </Button>
-
-      {/* todo: make sure that only unauthenticated users can access this page */}
-      <Button asChild>
-        <Link href="/signup">Signup Page</Link>
-      </Button>
-
-      {/* todo: make sure that only authenticated users can access this page */}
-      <Button asChild>
-        <Link href="/users">Users Page</Link>
-      </Button>
+        <Welcome />
+      </div>
     </main>
   );
 }

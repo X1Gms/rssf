@@ -4,8 +4,9 @@ import { useState, useMemo } from "react";
 
 import { User as UserType } from "@/types";
 
+import { Search } from "@/components/search";
+
 import { User } from "./user";
-import { SearchUser } from "./search-user";
 
 interface UsersWithSearchProps {
   users: UserType[];
@@ -27,7 +28,7 @@ export function UsersWithSearch({ users }: UsersWithSearchProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <SearchUser
+      <Search
         value={query}
         onChange={setQuery}
         totalResults={filteredUsers.length}
