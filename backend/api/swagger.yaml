@@ -123,22 +123,23 @@ paths:
   # USERS
   #############################################
 
-/users:
-  get:
-    tags: [Users]
-    summary: Get all users
-    description: Returns a list of all users (name, email, role, total accesses, last access)
-    responses:
-      200:
-        description: List of users
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserListResponse"
-      404:
-        description: No users registered
-      500:
-        description: Internal error
+  /users:
+    get:
+      tags: [Users]
+      summary: Get all users
+      description: Returns a list of all users (name, email, role, total accesses, last access)
+      responses:
+        200:
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserListResponse"
+        404:
+          description: No users registered
+        500:
+          description: Internal error
+
   /user/{id}:
     get:
       tags: [Users]
@@ -231,7 +232,6 @@ paths:
         500:
           description: Internal error
 
-
   #############################################
   # AUTH
   #############################################
@@ -302,20 +302,16 @@ components:
           type: object
 
     ###################################
-    # USER MODELS
+    # USERS
     ###################################
 
     User:
       type: object
       properties:
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-        total_accesses:
-          type: integer
+        name: { type: string }
+        email: { type: string }
+        role: { type: string }
+        total_accesses: { type: integer }
         last_access:
           type: string
           format: date-time
@@ -323,13 +319,11 @@ components:
     UserListResponse:
       type: object
       properties:
-        message:
-          type: string
+        message: { type: string }
         data:
           type: array
           items:
             $ref: "#/components/schemas/User"
-
 
     LoginRequest:
       type: object
@@ -347,10 +341,8 @@ components:
       type: object
       required: [name, email, password]
       properties:
-        name:
-          type: string
-        email:
-          type: string
+        name: { type: string }
+        email: { type: string }
         password:
           type: string
           minLength: 9
@@ -360,16 +352,13 @@ components:
       type: object
       required: [password]
       properties:
-        name:
-          type: string
-        email:
-          type: string
+        name: { type: string }
+        email: { type: string }
         password:
           type: string
           minLength: 9
           pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>_\\-+=/\\\\\\[\\]]).{9,}$"
-        role_id:
-          type: integer
+        role_id: { type: integer }
 
     DeleteUserRequest:
       type: object
