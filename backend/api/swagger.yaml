@@ -123,27 +123,22 @@ paths:
   # USERS
   #############################################
 
-  /users:
-    get:
-      tags: [ Users ]
-      summary: Get all users
-      description: Returns a simple list of all users (name + email only)
-      responses:
-        200:
-          description: List of users
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/User"
-        404:
-          description: No users registered
-        500:
-          description: Internal error
+/users:
+  get:
+    tags: [Users]
+    summary: Get all users
+    description: Returns a list of all users (name, email, role, total accesses, last access)
+    responses:
+      200:
+        description: List of users
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserListResponse"
+      404:
+        description: No users registered
+      500:
+        description: Internal error
   /user/{id}:
     get:
       tags: [Users]
@@ -313,8 +308,28 @@ components:
     User:
       type: object
       properties:
-        name: { type: string }
-        email: { type: string }
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        total_accesses:
+          type: integer
+        last_access:
+          type: string
+          format: date-time
+
+    UserListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+
 
     LoginRequest:
       type: object
