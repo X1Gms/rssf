@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const { setupRoutes } = require('./router.js');
 const { swaggerDocs } = require('./swagger.js');
 const options = require("../options.json").server;
 
 const createApp = () => {
     const app = express();
+    app.use(cors());
     app.use(express.json());
     // Setup API Routes
     setupRoutes(app);
