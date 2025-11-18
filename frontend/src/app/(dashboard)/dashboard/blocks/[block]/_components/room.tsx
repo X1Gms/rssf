@@ -21,7 +21,14 @@ export function Room({ room }: RoomProps) {
         : "Eletric Panel";
 
   return (
-    <Link href={`/dashboard/rooms/${room.id}`}>
+    // only allows to click in room and electric panel
+    <Link
+      href={
+        room.type !== "corridor"
+          ? `/dashboard/rooms/${room.id}`
+          : `/dashboard/blocks/${room.block}`
+      }
+    >
       <Card>
         <CardHeader>
           <CardTitle className="text-base">{room.name}</CardTitle>
