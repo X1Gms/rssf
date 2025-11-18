@@ -11,6 +11,7 @@ const setupRoutes = (app) => {
     // ####################################
 
     // ######### CRUD USERS ###############
+    app.get("/users", handlers.getUsers);
     app.get('/user/:id',handlers.getUser);
     app.post('/user',middleWares.registerUserMiddleware,handlers.registerUser);
     app.put('/user/:id',middleWares.updateUserMiddleware,handlers.updateUser);
