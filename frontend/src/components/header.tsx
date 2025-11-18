@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./logo";
+
 import { Button } from "./ui/button";
 
 // todo: check if user is authenticated from API and if it is admin
@@ -9,7 +10,7 @@ const IS_AUTHENTICATED = true;
 export function Header() {
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 flex h-14 items-center border-b px-6 backdrop-blur">
-      <div className="container flex">
+      <div className="container flex gap-6">
         <Logo />
 
         <nav className="ml-auto flex items-center gap-2">

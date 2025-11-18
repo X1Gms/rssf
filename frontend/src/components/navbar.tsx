@@ -1,10 +1,12 @@
 import { NavBarLink } from "./navbar-link";
+import { ToggleTheme } from "./toogle-theme";
+
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export async function NavBar() {
   return (
     <div className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-14 z-50 border-b px-6 py-2 backdrop-blur">
-      <div className="container">
+      <div className="container flex items-center justify-between gap-6">
         <ScrollArea>
           <nav className="flex items-center gap-2">
             <NavBarLink href="/dashboard/users" value="Users" />
@@ -12,6 +14,8 @@ export async function NavBar() {
           </nav>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
+
+        <ToggleTheme />
       </div>
     </div>
   );
