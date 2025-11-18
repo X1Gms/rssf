@@ -1,0 +1,485 @@
+openapi: 3.0.0
+info:
+  title: Grupo 3, RSSF Documentation
+  description: Sensorial API documentation (auto-generated + middleware-aware)
+  version: 1.1.0
+
+servers:
+  - url: http://localhost:3000
+
+tags:
+  - name: Users
+  - name: Auth
+  - name: Devices
+  - name: Rooms
+  - name: Readings
+  - name: Roles
+
+paths:
+
+  #############################################
+  # DEVICES
+  #############################################
+
+  /devices:
+    get:
+      tags: [Devices]
+      summary: Get paginated devices
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 5 }
+        - in: query
+          name: offset
+          schema: { type: integer, default: 0 }
+      responses:
+        200:
+          description: Devices list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceListResponse"
+        500:
+          description: Internal error
+
+  /device/{id}:
+    get:
+      tags: [Devices]
+      summary: Get one device
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        200:
+          description: Device found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceSingleResponse"
+        500:
+          description: Internal error
+
+  #############################################
+  # ROOMS
+  #############################################
+
+  /rooms:
+    get:
+      tags: [Rooms]
+      summary: Get rooms (with filters)
+      parameters:
+        - in: query
+          name: school
+          schema: { type: string }
+        - in: query
+          name: block
+          schema: { type: string }
+        - in: query
+          name: floor
+          schema: { type: integer }
+        - in: query
+          name: room
+          schema: { type: integer }
+        - in: query
+          name: type
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 5 }
+        - in: query
+          name: offset
+          schema: { type: integer, default: 0 }
+      responses:
+        200:
+          description: Rooms grouped by school
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoomsResponse"
+        500:
+          description: Internal error
+
+  #############################################
+  # ROLES
+  #############################################
+
+  /roles:
+    get:
+      tags: [Roles]
+      summary: Get all roles
+      responses:
+        200:
+          description: Role list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RolesResponse"
+        500:
+          description: Internal error
+
+  #############################################
+  # USERS
+  #############################################
+
+  /users:
+    get:
+      tags: [ Users ]
+      summary: Get all users
+      description: Returns a simple list of all users (name + email only)
+      responses:
+        200:
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        404:
+          description: No users registered
+        500:
+          description: Internal error
+  /user/{id}:
+    get:
+      tags: [Users]
+      summary: Get user by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        200:
+          description: User object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: User not found
+        500:
+          description: Internal error
+
+    put:
+      tags: [Users]
+      summary: Update user (middleware-validated)
+      description: Password is ALWAYS required for update.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        200:
+          description: Successful update
+        400:
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrors"
+        500:
+          description: Internal error
+
+    delete:
+      tags: [Users]
+      summary: Delete user (password required)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteUserRequest"
+      responses:
+        200:
+          description: User deleted
+        400:
+          description: Password validation error
+        401:
+          description: Invalid password
+        404:
+          description: User not found
+        500:
+          description: Internal error
+
+  /user:
+    post:
+      tags: [Users]
+      summary: Register new user (middleware-validated)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        201:
+          description: User created
+        400:
+          description: Validation errors
+        500:
+          description: Internal error
+
+
+  #############################################
+  # AUTH
+  #############################################
+
+  /login:
+    post:
+      tags: [Auth]
+      summary: Login (middleware-validated)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        200:
+          description: Login successful
+        400:
+          description: Email/password validation failed
+        401:
+          description: Invalid credentials
+        500:
+          description: Internal error
+
+  #############################################
+  # READINGS
+  #############################################
+
+  /samples:
+    get:
+      tags: [Readings]
+      summary: Get sensor samples
+      parameters:
+        - in: query
+          name: offset
+          schema: { type: integer, default: 0 }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 50 }
+        - in: query
+          name: room
+          schema: { type: integer }
+      responses:
+        200:
+          description: Grouped samples
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SamplesResponse"
+        500:
+          description: Internal error
+
+
+############################################################
+# COMPONENTS
+############################################################
+
+components:
+  schemas:
+
+    ###################################
+    # VALIDATION ERRORS FORMAT
+    ###################################
+    ValidationErrors:
+      type: object
+      properties:
+        errors:
+          type: object
+
+    ###################################
+    # USER MODELS
+    ###################################
+
+    User:
+      type: object
+      properties:
+        name: { type: string }
+        email: { type: string }
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          example: user@example.com
+        password:
+          type: string
+          minLength: 9
+          pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>_\\-+=/\\\\\\[\\]]).{9,}$"
+
+    RegisterRequest:
+      type: object
+      required: [name, email, password]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          minLength: 9
+          pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>_\\-+=/\\\\\\[\\]]).{9,}$"
+
+    UpdateUserRequest:
+      type: object
+      required: [password]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          minLength: 9
+          pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>_\\-+=/\\\\\\[\\]]).{9,}$"
+        role_id:
+          type: integer
+
+    DeleteUserRequest:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+          minLength: 9
+          pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?\":{}|<>_\\-+=/\\\\\\[\\]]).{9,}$"
+
+    ###################################
+    # DEVICES
+    ###################################
+
+    Device:
+      type: object
+      properties:
+        device_id: { type: integer }
+        device_name: { type: string }
+        serial_number: { type: string }
+        device_number: { type: string }
+        technology: { type: string }
+        room_number: { type: integer }
+        floor_number: { type: integer }
+        block_name: { type: string }
+        school_name: { type: string }
+        full_location: { type: string }
+
+    DeviceListResponse:
+      type: object
+      properties:
+        message: { type: string }
+        currentOffset: { type: integer }
+        currentLimit: { type: integer }
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Device"
+
+    DeviceSingleResponse:
+      type: object
+      properties:
+        message: { type: string }
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Device"
+
+    ###################################
+    # ROOMS
+    ###################################
+
+    Room:
+      type: object
+      properties:
+        Block: { type: string }
+        ROOM: { type: integer }
+        FLOOR: { type: integer }
+        TYPE: { type: string }
+
+    RoomsResponse:
+      type: object
+      properties:
+        message: { type: string }
+        currentOffset: { type: integer }
+        currentLimit: { type: integer }
+        currentQuery:
+          type: object
+        data:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/Room"
+
+    ###################################
+    # ROLES
+    ###################################
+
+    Role:
+      type: object
+      properties:
+        role_id: { type: integer }
+        role_name: { type: string }
+
+    RolesResponse:
+      type: object
+      properties:
+        message: { type: string }
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+
+    ###################################
+    # READINGS
+    ###################################
+
+    SampleReading:
+      type: object
+      properties:
+        reading_id: { type: integer }
+        humidity: { type: number }
+        luminosity: { type: number }
+        temperature: { type: number }
+        created_at: { type: string }
+
+    SamplesResponse:
+      type: object
+      properties:
+        message: { type: string }
+        currentOffset: { type: integer }
+        currentLimit: { type: integer }
+        currentQuery:
+          type: object
+        data:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                device:
+                  $ref: "#/components/schemas/Device"
+                samples:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/SampleReading"
